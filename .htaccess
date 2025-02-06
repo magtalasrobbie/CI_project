@@ -1,0 +1,33 @@
+DirectoryIndex index.php index.html
+
+RewriteEngine on
+Order deny,allow
+Deny from all
+Allow from all
+Options -Indexes
+
+# This is to handle CORS Error block
+Header Set Access-Control-Allow-Origin *
+
+# Some hostings require RewriteBase to be uncommented
+# Example:
+# Your store url is http://www.yourcompany.com/yoursite/main/
+# So "RewriteBase" should be:
+# RewriteBase /yoursite/main/
+
+# Redirect HTTP to HTTPS
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RedirectMatch 404 /.*\.md
+
+# Development Setting
+RewriteBase /ci3/
+
+# Production Setting
+# RewriteBase /
+
+RewriteCond $1 !^(index\.php)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
