@@ -32,7 +32,14 @@ class Sample_model extends CI_Model
     function update_data($update_data, $id)
     {
         $this->db->where('id', $id);
-        return $this->db->update('user', $update_data);
+        return $this->db->update('users', $update_data);
+    }
+
+    function delete_data($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->set('status', 1);
+        return $this->db->update('users');
     }
 
 

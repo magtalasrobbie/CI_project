@@ -79,4 +79,26 @@ class Welcome extends CI_Controller
 
 		echo json_encode($output);
 	}
+
+	public function delete_data()
+	{
+		$error = '';
+		$success = '';
+
+		$id = $this->input->post('id', true);
+
+		$result = $this->sample_model->delete_data($id);
+		if ($result) {
+			$success = 'Deleted';
+		} else {
+			$error = 'Failed to delete';
+		}
+
+		$output = array(
+			'error' => $error,
+			'success' => $success,
+		);
+
+		echo json_encode($output);
+	}
 }
